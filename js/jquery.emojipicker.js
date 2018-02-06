@@ -429,6 +429,9 @@
       this.each(function() {
         var plugin = $.data( this, pluginName );
         switch(options) {
+          case 'hide':
+            plugin.hide();
+            break;
           case 'toggle':
             plugin.iconClicked();
             break;
