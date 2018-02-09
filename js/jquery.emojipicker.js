@@ -57,7 +57,8 @@
     }
 
     var possiblePositions = [ 'left',
-                              'right'
+                              'right',
+                              'none'
                               /*,'top',
                               'bottom'*/];
     if($.inArray(this.settings.position,possiblePositions) == -1) {
