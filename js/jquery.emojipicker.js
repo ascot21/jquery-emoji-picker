@@ -185,6 +185,9 @@
 
     updatePosition: function() {
 
+      // If position is 'none', we'll just position with css
+      if (this.settings.position == 'none') { return this; }
+
       /*  Process:
           1. Find the nearest positioned element by crawling up the ancestors, record it's offset
           2. Find the bottom left or right of the input element, record this (Account for position setting of left or right)
@@ -207,26 +210,23 @@
       // Hide picker, because there is toggle next in the code
       this.$picker.hide();
 
-      // If position is 'none', we'll just position with css
-      if (!this.settings.position == 'none') {
-        // Step 2
-        var elOffset = this.$el.offset();
-        if(this.settings.position == 'right'){
-          elOffset.left += this.$el.outerWidth() - this.settings.width;
-        }
-        elOffset.top += this.$el.outerHeight();
-
-        // Step 3
-        var diffOffset = {
-          top: (elOffset.top - parentOffset.top),
-          left: (elOffset.left - parentOffset.top)
-        };
-
-        this.$picker.css({
-          top: diffOffset.top,
-          left: diffOffset.left
-        });
+      // Step 2
+      var elOffset = this.$el.offset();
+      if(this.settings.position == 'right'){
+        elOffset.left += this.$el.outerWidth() - this.settings.width;
       }
+      elOffset.top += this.$el.outerHeight();
+
+      // Step 3
+      var diffOffset = {
+        top: (elOffset.top - parentOffset.top),
+        left: (elOffset.left - parentOffset.top)
+      };
+
+      this.$picker.css({
+        top: diffOffset.top,
+        left: diffOffset.left
+      });
 
 
       return this;
@@ -431,6 +431,9 @@
         switch(options) {
           case 'hide':
             plugin.hide();
+            break;
+          case 'show':
+            plugin.show();
             break;
           case 'toggle':
             plugin.iconClicked();
